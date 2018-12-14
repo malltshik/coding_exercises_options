@@ -2,16 +2,19 @@
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+import os
 
 HOST_NAME = 'localhost'
 PORT_NUMBER = 9000
+WORKDIR = os.path.dirname(os.path.abspath(__file__))
+
 
 class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
 
         paths = {
-            '/locations': 'en/locations/cities.json',
-            '/attributes': 'en/single_choice_attributes.json',
+            '/locations': WORKDIR + '/en/locations/cities.json',
+            '/attributes': WORKDIR + '/en/single_choice_attributes.json',
         }
 
         if self.path not in paths:
@@ -24,6 +27,7 @@ class MyHandler(BaseHTTPRequestHandler):
             with open(paths[self.path]) as f:
                 data = json.load(f)
             self.wfile.write(bytes(json.dumps(data), 'UTF-8'))
+
 
 if __name__ == '__main__':
     server_class = HTTPServer
