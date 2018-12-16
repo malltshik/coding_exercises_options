@@ -7,19 +7,15 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import ru.malltshik.codingexercisesoptions.exceptions.RepositoryException;
 import ru.malltshik.codingexercisesoptions.models.Profile;
 import ru.malltshik.codingexercisesoptions.repositories.ProfileRepository;
 
-import java.util.Collections;
 import java.util.List;
 
-import static java.util.Collections.emptyList;
-import static java.util.Collections.emptyMap;
-import static java.util.Collections.singletonMap;
+import static java.util.Collections.*;
 
 @Repository
 public class ProfileJDBCRepository implements ProfileRepository {
@@ -58,7 +54,7 @@ public class ProfileJDBCRepository implements ProfileRepository {
     @Override
     public Profile save(Profile profile) throws RepositoryException {
         try {
-            if(profile.getId() != null) {
+            if (profile.getId() != null) {
                 template.update(UPDATE_QUERY, getParamSourceFromProfile(profile));
             } else {
                 GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();

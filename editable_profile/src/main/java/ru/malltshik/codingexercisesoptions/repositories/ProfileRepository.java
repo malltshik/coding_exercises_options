@@ -18,6 +18,7 @@ public interface ProfileRepository {
 
     /**
      * Find all profiles
+     *
      * @return list of profiles
      */
     @NonNull
@@ -25,6 +26,7 @@ public interface ProfileRepository {
 
     /**
      * Find one profile by primary key
+     *
      * @param id primary key (should be not null)
      * @return {@link Profile} object or <strong>null</strong> if profile hasn't been found.
      */
@@ -35,6 +37,7 @@ public interface ProfileRepository {
      * Save or update method for persisting profile data into storage.
      * If {@param profile} has an {@link Profile#id} that means we are going to update existed profile.
      * Otherwise we'll be creating new record in storage.
+     *
      * @param profile entity to save
      * @return {@link Profile} object which has been stored with primary key
      */
@@ -43,6 +46,7 @@ public interface ProfileRepository {
 
     /**
      * Delete profile record from storage
+     *
      * @param id primary key (should be not null)
      */
     void delete(@NonNull Long id) throws RepositoryException;
@@ -50,6 +54,7 @@ public interface ProfileRepository {
     /**
      * Delete profile record from storage.
      * Actually do {@link ProfileService#delete(Long)}
+     *
      * @param profile entity to remove (should has id)
      */
     default void delete(@NonNull Profile profile) throws RepositoryException {

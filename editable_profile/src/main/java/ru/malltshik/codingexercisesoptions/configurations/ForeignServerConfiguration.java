@@ -18,7 +18,6 @@ import java.io.IOException;
  * JVM process will be killed.
  * However if something has gone wrong, we have to find python process and kill it on our own.
  * {@code pkill -f server/server.py}
- *
  */
 @Configuration
 @Order(0)

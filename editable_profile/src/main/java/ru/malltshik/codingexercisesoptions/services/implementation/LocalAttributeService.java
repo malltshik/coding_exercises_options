@@ -14,7 +14,6 @@ import ru.malltshik.codingexercisesoptions.properties.AttributeServerProperties;
 import ru.malltshik.codingexercisesoptions.services.AttributeService;
 
 import javax.annotation.PostConstruct;
-import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +30,7 @@ import static java.util.Collections.emptyList;
  * properties validation exception. Even more application can go down if foreign server will be unavailable.
  * Procedures loading attributes and locations are repeatable with {@link Scheduled} annotation. By default every day
  * in midnight.
- *
+ * <p>
  * TODO move schedule cron expression to the property file.
  */
 @Component
