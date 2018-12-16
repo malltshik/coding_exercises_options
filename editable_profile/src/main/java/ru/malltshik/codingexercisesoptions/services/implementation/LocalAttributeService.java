@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import ru.malltshik.codingexercisesoptions.properties.AttributeServerProperties;
 import ru.malltshik.codingexercisesoptions.services.AttributeService;
 
 import javax.annotation.PostConstruct;
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,8 +50,12 @@ public class LocalAttributeService implements AttributeService {
     @PostConstruct
     @Scheduled(cron = "0 0 0 * * *")
     private void postConstruct() {
-        loadAttributes();
-        loadLocations();
+        try {
+            loadAttributes();
+            loadLocations();
+        } catch (ResourceAccessException e) {
+            throw new IllegalStateException("Unable load data from foreign server");
+        }
     }
 
     @Override

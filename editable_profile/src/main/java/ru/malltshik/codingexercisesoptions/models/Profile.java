@@ -45,7 +45,7 @@ public class Profile {
      */
     private String religion;
     /**
-     * not editable, only on signup. In centimeter.
+     * not editable, only on signup. In millimeter.
      */
     private int height;
 

@@ -1,10 +1,7 @@
 package ru.malltshik.codingexercisesoptions.properties;
 
-import lombok.Getter;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotEmpty;
@@ -17,7 +14,8 @@ public class AttributeServerProperties {
     /**
      * http address of attribute server
      */
-    @URL @NotEmpty
+    @URL
+    @NotEmpty
     private String url = "http://localhost:9000";
 
     /**
