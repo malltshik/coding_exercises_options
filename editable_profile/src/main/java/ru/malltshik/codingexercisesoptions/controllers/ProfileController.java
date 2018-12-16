@@ -11,6 +11,9 @@ import ru.malltshik.codingexercisesoptions.services.ProfileService;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * TODO write integration test for this API
+ */
 @RestController
 @RequestMapping("/api/profile")
 public class ProfileController {

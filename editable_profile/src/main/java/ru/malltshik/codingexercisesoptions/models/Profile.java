@@ -7,10 +7,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
+/**
+ * TODO add javax.validations for each field
+ */
 @Data
 @Builder
 @AllArgsConstructor
@@ -22,6 +27,7 @@ public class Profile {
      * primary key
      */
     private Long id;
+
     /**
      * free text, up to 256 char
      */
