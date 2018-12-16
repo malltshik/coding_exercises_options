@@ -1,8 +1,65 @@
-<html>
-    <head>
-        <title>Editable Profile</title>
-    </head>
-    <body>
-        <!--TODO write frontend part application -->
-    </body>
+<html ng-app="App">
+<head>
+    <title>Editable Profile</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/application.css">
+</head>
+<body ng-controller="RootController" ng-clock>
+<div class="container mt-3">
+    <div class="col-lg-12">
+        <div class="card border-primary mb-3" ng-repeat="p in profiles">
+            <div class="card">
+                <div class="card-header" style="display: inline-flex;">
+                    <!--todo add picture support -->
+                    <img style="width: 48px;height: 48px;" class="card-img-top"
+                         src="https://static.thenounproject.com/png/630729-200.png" alt="{{p.displayName}}">
+                    <h4 style="margin: 10px 5px 0 10px;" class="card-title" ng-bind="p.displayName"></h4>
+                </div>
+                <div class="card-body">
+                    <p>Birthday: {{p.birthday}}</p>
+                    <p>Gender: {{p.gender}}</p>
+                    <p>Ethnicity: {{p.ethnicity}}</p>
+                    <p>Religion: {{p.religion}}</p>
+                    <p>Height: {{heightToString(p.height)}}</p>
+                    <p>Figure: {{p.figure}}</p>
+                    <p>Location: {{p.location}}</p>
+                    <blockquote>About me: {{p.aboutMe}}</blockquote>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="card-link">Edit</a>
+                    <a ng-click="remove(p)" class="card-link text-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-resource.min.js"></script>
+<script>
+    var App = angular.module("App", ["ngResource"]);
+
+    App.factory('ProfileFactory', ['$resource', function ($resource) {
+        return $resource('/api/profile/:id/', {}, {})
+    }]);
+
+    App.controller("RootController", ["$scope", "$rootScope", "$filter", "ProfileFactory",
+        function ($scope, $rootScope, $filter, ProfileFactory) {
+            ProfileFactory.query().$promise.then(function (resp) {
+                $scope.profiles = resp;
+            });
+            $scope.heightToString = function (value) {
+                return Math.round((value / 10) * 100) / 100 + " cm."
+            };
+            $scope.remove = function (profile) {
+                profile.$remove({id: profile.id}).then(function () {
+                    $scope.profiles = $scope.profiles.filter(function (el) {
+                        return el.id !== profile.id;
+                    });
+
+                });
+            }
+        }]);
+
+</script>
 </html>

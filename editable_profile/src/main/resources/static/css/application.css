@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css?family=Ubuntu:400,700");
+body {
+    font-family: "Ubuntu", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+button, html, input, select, textarea {
+    font-family: "Ubuntu", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+a {
+    cursor: pointer;
+}
