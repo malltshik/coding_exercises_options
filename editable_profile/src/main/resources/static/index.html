@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="css/application.css">
 </head>
 <body ng-controller="RootController" ng-clock>
+<!--todo add new profile button and form -->
 <div class="container mt-3">
     <div class="col-lg-12">
         <div class="card border-primary mb-3" ng-repeat="p in profiles">
@@ -26,6 +27,7 @@
                     <blockquote>About me: {{p.aboutMe}}</blockquote>
                 </div>
                 <div class="card-footer">
+                    <!--todo add edit form -->
                     <a href="#" class="card-link">Edit</a>
                     <a ng-click="remove(p)" class="card-link text-danger">Delete</a>
                 </div>
