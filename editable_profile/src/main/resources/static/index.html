@@ -39,6 +39,10 @@
 <script>
     var App = angular.module("App", ["ngResource"]);
 
+    App.config(function($resourceProvider) {
+        $resourceProvider.defaults.stripTrailingSlashes = false;
+    });
+
     App.factory('ProfileFactory', ['$resource', function ($resource) {
         return $resource('/api/profile/:id/', {}, {})
     }]);

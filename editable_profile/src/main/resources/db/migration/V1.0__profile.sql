@@ -3,7 +3,7 @@ CREATE TABLE profile (
   display_name VARCHAR(256) NOT NULL,
   real_name VARCHAR(256) NOT NULL,
   picture BLOB,
-  birthday DATE NOT NULL,
+  birthday TIMESTAMP NOT NULL,
   gender VARCHAR(128) NOT NULL,
   ethnicity VARCHAR(128),
   religion VARCHAR(128),

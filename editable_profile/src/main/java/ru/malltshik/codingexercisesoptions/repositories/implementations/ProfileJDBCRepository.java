@@ -82,7 +82,7 @@ public class ProfileJDBCRepository implements ProfileRepository {
         profile.setDisplayName(rs.getString("display_name"));
         profile.setRealName(rs.getString("real_name"));
         profile.setPicture(rs.getBytes("picture"));
-        profile.setBirthday(rs.getDate("birthday"));
+        profile.setBirthday(rs.getTimestamp("birthday"));
         profile.setGender(rs.getString("gender"));
         profile.setEthnicity(rs.getString("ethnicity"));
         profile.setReligion(rs.getString("religion"));
