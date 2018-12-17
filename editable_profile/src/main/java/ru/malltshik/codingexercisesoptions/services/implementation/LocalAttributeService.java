@@ -30,8 +30,6 @@ import static java.util.Collections.emptyList;
  * properties validation exception. Even more application can go down if foreign server will be unavailable.
  * Procedures loading attributes and locations are repeatable with {@link Scheduled} annotation. By default every day
  * in midnight.
- * <p>
- * TODO move schedule cron expression to the property file.
  */
 @Component
 public class LocalAttributeService implements AttributeService {

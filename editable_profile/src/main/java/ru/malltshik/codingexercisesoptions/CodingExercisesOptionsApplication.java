@@ -6,8 +6,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import ru.malltshik.codingexercisesoptions.properties.AttributeServerProperties;
 
 /**
+ * Spring boot application main class.
+ *
  * TODO add more logs
- * TODO add javadoc to each class
  */
 @SpringBootApplication
 @EnableConfigurationProperties(AttributeServerProperties.class)

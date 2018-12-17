@@ -26,6 +26,10 @@ public class ForeignServerConfiguration {
     private final static Logger LOGGER = LoggerFactory.getLogger(ForeignServerConfiguration.class);
     private static Process FOREIGN_SERVER_PROCESS;
 
+    /**
+     * Running foreign server process
+     * @throws IOException might rise if server.py file will not exist, or permission denied or else IO exception
+     */
     @PostConstruct
     public void init() throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder("python3", "server/server.py");
@@ -34,6 +38,9 @@ public class ForeignServerConfiguration {
         LOGGER.info("Foreign server started!");
     }
 
+    /**
+     * Stopping  foreign server process
+     */
     @PreDestroy
     public void destroy() {
         if (FOREIGN_SERVER_PROCESS != null && FOREIGN_SERVER_PROCESS.isAlive()) {

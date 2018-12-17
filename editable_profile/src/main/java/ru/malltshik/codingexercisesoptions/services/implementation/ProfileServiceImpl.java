@@ -12,6 +12,12 @@ import java.util.List;
 
 import static java.lang.String.format;
 
+
+/**
+ * Currently this service works like proxy over {@link ProfileRepository}
+ *
+ * In future here might be business logic
+ */
 @Service
 public class ProfileServiceImpl implements ProfileService {
 

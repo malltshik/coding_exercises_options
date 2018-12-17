@@ -7,6 +7,12 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+/**
+ * Foreign server properties which could be defined in {@see application.properties} file
+ * Also here defined default values for properties and format validation annotations.
+ * It means on start application, if some property is not valid, application will go down.
+ *
+ */
 @Validated
 @ConfigurationProperties(prefix = "attrserver")
 public class AttributeServerProperties {

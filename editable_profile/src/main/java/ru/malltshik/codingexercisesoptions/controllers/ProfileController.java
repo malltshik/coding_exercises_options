@@ -7,13 +7,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
-import ru.malltshik.codingexercisesoptions.exceptions.ValidationModelException;
+import ru.malltshik.codingexercisesoptions.exceptions.http.ValidationModelException;
 import ru.malltshik.codingexercisesoptions.exceptions.http.NotFoundException;
 import ru.malltshik.codingexercisesoptions.models.Profile;
 import ru.malltshik.codingexercisesoptions.services.ProfileService;
 
 import java.util.List;
 
+/**
+ * Controller provide API to work with {@link Profile} entity.
+ * <p>
+ * Currently support standard CRUD operations
+ */
 @RestController
 @RequestMapping("/api/profile")
 public class ProfileController {

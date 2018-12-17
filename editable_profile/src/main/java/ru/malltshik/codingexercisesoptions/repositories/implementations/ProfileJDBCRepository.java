@@ -17,6 +17,9 @@ import java.util.List;
 
 import static java.util.Collections.*;
 
+/**
+ * See javadoc there {@link ProfileRepository}
+ */
 @Repository
 public class ProfileJDBCRepository implements ProfileRepository {
 

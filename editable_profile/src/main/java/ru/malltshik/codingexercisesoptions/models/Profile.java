@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import ru.malltshik.codingexercisesoptions.repositories.ProfileRepository;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,11 @@ import java.util.Date;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
+/**
+ * Profile entity class used to exchange with users through REST API.
+ * Also used in {@link ProfileRepository} for storing to database and reading from it.
+ * Also used in validation process with whole {@link javax.validation } annotations.
+ */
 @Data
 @Builder
 @AllArgsConstructor
