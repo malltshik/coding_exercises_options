@@ -69,7 +69,7 @@ public class ControllerAdviceConfiguration {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    class ResponseError {
+    public static class ResponseError {
         protected String message;
         protected String type;
         ResponseError(Exception e) {
@@ -84,7 +84,8 @@ public class ControllerAdviceConfiguration {
      */
     @Data
     @EqualsAndHashCode(callSuper = true)
-    class ResponseValidationError extends ResponseError {
+    @NoArgsConstructor
+    public static class ResponseValidationError extends ResponseError {
         private Map<String, Set<String>> errors;
 
         ResponseValidationError(ValidationModelException e) {

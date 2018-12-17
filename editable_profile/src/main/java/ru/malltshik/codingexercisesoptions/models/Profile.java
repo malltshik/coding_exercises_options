@@ -35,16 +35,16 @@ public class Profile {
     /**
      * free text, up to 256 char
      */
-    @NotEmpty(message = "Display name is required field.")
-    @Length(max = 256, message = "Maximum length of display name should be less then 256 chars.")
+    @NotEmpty(message = "Display name is required field")
+    @Length(max = 256, message = "Maximum length of display name should be less then 256 chars")
     private String displayName;
 
     /**
      * free text, up to 256 char
      */
     @JsonProperty(access = WRITE_ONLY)
-    @NotEmpty(message = "Real name is required field.")
-    @Length(max = 256, message = "Maximum length of display name should be less then 256 chars.")
+    @NotEmpty(message = "Real name is required field")
+    @Length(max = 256, message = "Maximum length of display name should be less then 256 chars")
     private String realName;
     /**
      * upload component
@@ -53,12 +53,12 @@ public class Profile {
     /**
      * date
      */
-    @NotNull(message = "Birthday is required field.")
+    @NotNull(message = "Birthday is required field")
     private Date birthday;
     /**
      * single selection
      */
-    @NotNull(message = "Gender is required field.")
+    @NotNull(message = "Gender is required field")
     private String gender;
     /**
      * single selection
@@ -83,25 +83,26 @@ public class Profile {
      * single selection
      */
     @JsonProperty(access = WRITE_ONLY)
-    @NotNull(message = "Marital status is required field.")
+    @NotNull(message = "Marital status is required field")
     private String maritalStatus;
 
     /**
      * free text, up to 256 char
      */
     @JsonProperty(access = WRITE_ONLY)
-    @Length(max = 256, message = "Maximum length of occupation should be less then 256 chars.")
+    @Length(max = 256, message = "Maximum length of occupation should be less then 256 chars")
     private String occupation;
 
     /**
      * free text, up to 5000 char
      */
-    @Length(max = 5000, message = "Maximum length about information should be less then 5000 chars.")
+    @Length(max = 5000, message = "Maximum length about information should be less then 5000 chars")
     private String aboutMe;
 
     /**
      * text autocomplete (type city name, store lat/lon)
      */
+    @NotNull(message = "Location is required field")
     private String location;
 
     public void setHeight(int height) {
