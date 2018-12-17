@@ -1,5 +1,7 @@
 package ru.malltshik.codingexercisesoptions.repositories.implementations;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -15,6 +17,7 @@ import ru.malltshik.codingexercisesoptions.repositories.ProfileRepository;
 
 import java.util.List;
 
+import static java.lang.String.format;
 import static java.util.Collections.*;
 
 /**
@@ -22,6 +25,8 @@ import static java.util.Collections.*;
  */
 @Repository
 public class ProfileJDBCRepository implements ProfileRepository {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(ProfileJDBCRepository.class);
 
     private final NamedParameterJdbcTemplate template;
 
@@ -37,7 +42,9 @@ public class ProfileJDBCRepository implements ProfileRepository {
         } catch (EmptyResultDataAccessException e) {
             return emptyList();
         } catch (DataAccessException e) {
-            throw new RepositoryException("Unable to find all profile rows", e);
+            String message = "Unable to find all profile rows";
+            LOGGER.error(message, e);
+            throw new RepositoryException(message, e);
         }
     }
 
@@ -49,7 +56,9 @@ public class ProfileJDBCRepository implements ProfileRepository {
         } catch (EmptyResultDataAccessException e) {
             return null;
         } catch (DataAccessException e) {
-            throw new RepositoryException(String.format("Unable to find profile with id: %s", id), e);
+            String message = format("Unable to find profile with id: %s", id);
+            LOGGER.error(message, e);
+            throw new RepositoryException(message, e);
         }
 
     }
@@ -65,7 +74,9 @@ public class ProfileJDBCRepository implements ProfileRepository {
                 profile.setId(keyHolder.getKey().longValue());
             }
         } catch (DataAccessException e) {
-            throw new RepositoryException(String.format("Unable to save profile: %s", profile), e);
+            String message = format("Unable to save profile: %s", profile);
+            LOGGER.error(message, e);
+            throw new RepositoryException(message, e);
         }
         return profile;
     }
@@ -75,7 +86,9 @@ public class ProfileJDBCRepository implements ProfileRepository {
         try {
             template.update("DELETE FROM profile WHERE id=:id", singletonMap("id", id));
         } catch (DataAccessException e) {
-            throw new RepositoryException(String.format("Unable to remove profile with id: %s", id), e);
+            String message = format("Unable to remove profile with id: %s", id);
+            LOGGER.error(message, e);
+            throw new RepositoryException(message, e);
         }
     }
 

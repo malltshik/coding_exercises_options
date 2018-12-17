@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -26,6 +28,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @ControllerAdvice
 public class ControllerAdviceConfiguration {
 
+    public static final Logger LOGGER = LoggerFactory.getLogger(ControllerAdviceConfiguration.class);
 
     /**
      * All {@link Exception} returns response with {@link HttpStatus#INTERNAL_SERVER_ERROR} status
@@ -34,6 +37,7 @@ public class ControllerAdviceConfiguration {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseError> handleError(Exception e) {
+        LOGGER.debug("Exception has bean intercepted. 500 error will be sent to the client", e);
         return new ResponseEntity<>(new ResponseError(e), INTERNAL_SERVER_ERROR);
     }
 
@@ -44,6 +48,7 @@ public class ControllerAdviceConfiguration {
      */
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ResponseError> handleError(NotFoundException e) {
+        LOGGER.debug("Not found exception has bean intercepted. 404 error will be sent to the client", e);
         return new ResponseEntity<>(new ResponseError(e), NOT_FOUND);
     }
 
@@ -54,6 +59,7 @@ public class ControllerAdviceConfiguration {
      */
     @ExceptionHandler(ValidationModelException.class)
     public ResponseEntity<ResponseValidationError> handleError(ValidationModelException e) {
+        LOGGER.debug("Validation exception has bean intercepted. 400 error will be sent to the client", e);
         return new ResponseEntity<>(new ResponseValidationError(e), BAD_REQUEST);
     }
 

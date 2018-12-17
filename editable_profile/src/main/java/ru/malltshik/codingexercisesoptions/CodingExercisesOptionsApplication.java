@@ -7,8 +7,6 @@ import ru.malltshik.codingexercisesoptions.properties.AttributeServerProperties;
 
 /**
  * Spring boot application main class.
- *
- * TODO add more logs
  */
 @SpringBootApplication
 @EnableConfigurationProperties(AttributeServerProperties.class)
