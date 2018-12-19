@@ -16,8 +16,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import ru.malltshik.codingexercisesoptions.configurations.ControllerAdviceConfiguration;
+import ru.malltshik.codingexercisesoptions.configurations.ControllerAdviceConfiguration.ResponseError;
 import ru.malltshik.codingexercisesoptions.controllers.models.TestProfile;
 
+import java.io.IOException;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -56,6 +59,17 @@ public class ProfileControllerTest {
     }
 
     @Test
+    public void test00_notFoundProfileTest() throws IOException {
+        ResponseEntity<String> response = template.getForEntity(URL(-42L), String.class);
+        assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
+        assertTrue(response.hasBody());
+        ResponseError responseError = MAPPER.readValue(response.getBody(), ResponseError.class);
+        assertNotNull(responseError);
+        assertEquals(responseError.getType(), "NotFoundException");
+        assertEquals(responseError.getMessage(), "Profile with id -42 not found");
+    }
+
+    @Test
     public void test01_saveProfile() throws Exception {
         TestProfile responseProfile = createOne();
         assertNotNull(responseProfile.getId());
@@ -73,7 +87,7 @@ public class ProfileControllerTest {
     public void test02_updateProfile() throws Exception {
         createOne();
         profile.setDisplayName("Name two");
-        ResponseEntity<String> response = template.exchange(URL() + profile.getId(), HttpMethod.PUT,
+        ResponseEntity<String> response = template.exchange(URL(profile.getId()), HttpMethod.PUT,
                 new HttpEntity<>(profile), String.class);
         assertTrue(response.hasBody());
         assertEquals(response.getStatusCode(), HttpStatus.OK);
@@ -125,6 +139,10 @@ public class ProfileControllerTest {
 
     private String URL() {
         return "http://localhost:" + port + "/api/profile/";
+    }
+
+    private String URL(Long id) {
+        return URL() + id;
     }
 
 }

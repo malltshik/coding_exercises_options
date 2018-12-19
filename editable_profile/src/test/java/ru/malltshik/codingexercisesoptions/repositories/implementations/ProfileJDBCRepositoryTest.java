@@ -14,9 +14,7 @@ import ru.malltshik.codingexercisesoptions.repositories.ProfileRepository;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * TODO add context configuration. {@link ProfileRepository} only one bean we have to inject
@@ -30,6 +28,8 @@ public class ProfileJDBCRepositoryTest {
     @Autowired
     private ProfileRepository repository;
 
+    private static Long targetId = null;
+
     @Test
     public void test01_save() throws Exception {
         Profile profile = Profile.builder()
@@ -42,29 +42,30 @@ public class ProfileJDBCRepositoryTest {
                 .build();
         Profile saved = repository.save(profile);
         assertNotNull(saved.getId());
+        targetId = saved.getId();
     }
 
     @Test
     public void test02_findAll() throws Exception {
         List<Profile> profiles = repository.findAll();
-        assertEquals(profiles.size(), 1);
-        Profile profile = profiles.get(0);
-        assertNotNull(profile.getId());
+        assertFalse(profiles.isEmpty());
+        Profile profile = profiles.stream().filter(p -> p.getId().equals(targetId)).findFirst().orElse(null);
+        assertNotNull(profile);
     }
 
     @Test
     public void test03_getOne() throws Exception {
         Profile one = repository.getOne(-42L);
         assertNull(one);
-        one = repository.getOne(1L);
+        one = repository.getOne(targetId);
         assertNotNull(one);
         assertNotNull(one.getId());
     }
 
     @Test
     public void test04_delete() throws Exception {
-        repository.delete(1L);
-        Profile one = repository.getOne(1L);
+        repository.delete(targetId);
+        Profile one = repository.getOne(targetId);
         assertNull(one);
     }
 

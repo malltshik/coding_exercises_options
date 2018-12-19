@@ -78,7 +78,7 @@ public class ProfileJDBCRepository implements ProfileRepository {
             LOGGER.error(message, e);
             throw new RepositoryException(message, e);
         }
-        return profile;
+        return getOne(profile.getId());
     }
 
     @Override
@@ -120,12 +120,12 @@ public class ProfileJDBCRepository implements ProfileRepository {
                 .addValue("gender", profile.getGender())
                 .addValue("ethnicity", profile.getEthnicity())
                 .addValue("religion", profile.getReligion())
-                .addValue("height", profile.getHeight())
                 .addValue("figure", profile.getFigure())
                 .addValue("marital_status", profile.getMaritalStatus())
                 .addValue("occupation", profile.getOccupation())
                 .addValue("about_me", profile.getAboutMe())
-                .addValue("location", profile.getLocation());
+                .addValue("location", profile.getLocation())
+                .addValue("height", profile.getHeight());
     }
 
     private final static String INSERT_QUERY = "INSERT INTO profile " +
@@ -136,6 +136,6 @@ public class ProfileJDBCRepository implements ProfileRepository {
 
     private final static String UPDATE_QUERY = "UPDATE profile SET DISPLAY_NAME=:display_name, REAL_NAME=:real_name, " +
             "PICTURE=:picture, BIRTHDAY=:birthday, GENDER=:gender, ETHNICITY=:ethnicity, RELIGION=:religion, " +
-            "HEIGHT=:height,FIGURE=:figure, MARITAL_STATUS=:marital_status,OCCUPATION=:occupation," +
+            "FIGURE=:figure, MARITAL_STATUS=:marital_status,OCCUPATION=:occupation," +
             "ABOUT_ME=:about_me,LOCATION=:location";
 }

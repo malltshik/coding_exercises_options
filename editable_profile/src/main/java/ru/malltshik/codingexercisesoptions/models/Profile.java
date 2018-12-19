@@ -105,8 +105,4 @@ public class Profile {
     @NotNull(message = "Location is required field")
     private String location;
 
-    public void setHeight(int height) {
-        if(this.height == null) this.height = height;
-    }
-
 }
