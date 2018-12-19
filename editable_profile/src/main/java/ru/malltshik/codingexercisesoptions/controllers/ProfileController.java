@@ -53,11 +53,9 @@ public class ProfileController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateProfile(@RequestBody Profile profile, Errors errors) {
+    public ResponseEntity<Object> updateProfile(@RequestBody Profile profile, Errors errors) throws ValidationModelException {
         validator.validate(profile, errors);
-        if (errors.hasErrors()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        if (errors.hasErrors()) throw new ValidationModelException("Profile validation failed", errors);
         return new ResponseEntity<>(profileService.save(profile), HttpStatus.OK);
     }
 

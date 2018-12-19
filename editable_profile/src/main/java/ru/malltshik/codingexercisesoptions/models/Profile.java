@@ -116,7 +116,7 @@ public class Profile {
 
     @JsonSetter("picture")
     public void setPictureBase64(String base64) {
-        this.picture = Base64.getDecoder().decode(base64.split(",")[1]);
+        if(base64 != null) this.picture = Base64.getDecoder().decode(base64);
     }
 
 }

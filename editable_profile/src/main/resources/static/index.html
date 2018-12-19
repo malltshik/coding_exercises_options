@@ -11,17 +11,16 @@
             <input type="text" class="form-control" placeholder="Search by name" aria-label="Disply name"
                    aria-describedby="button-addon2" ng-model="searchQuery">
             <div class="input-group-append">
-                <button class="btn btn-primary" type="button" id="button-addon2" data-toggle="modal"
-                        data-target="#newProfileModal">New profile
+                <button class="btn btn-primary" type="button" id="button-addon2" ng-click="newProfileForm()">New profile
                 </button>
             </div>
         </div>
         <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="newProfileModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <form ng-submit="createNewProfile(draft)">
+                    <form ng-submit="save(draft)">
                         <div class="modal-header">
-                            <h4>New profile form</h4>
+                            <h4>Profile form</h4>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
@@ -45,7 +44,7 @@
                                     <label for="picture">Picture:</label>
                                     <input fileread="draft.picture" type="file" class="form-control-file" id="picture"
                                            accept="image/*">
-                                    <img ng-if="draft.picture" data-ng-src="{{draft.picture}}" alt="Draft Picture"
+                                    <img ng-if="draft.picture" data-ng-src="{{'data:image/jpeg;base64,' + draft.picture}}" alt="Draft Picture"
                                          class="image-preview" ng-click="draft.picture = null">
                                 </div>
 
@@ -56,7 +55,7 @@
                                            class="form-control" id="birthday" placeholder="Birthday">
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" ng-if="!draft.id">
                                     <label for="height">Height (millimeters):</label>
                                     <input ng-model="draft.height" type="number"
                                            class="form-control" id="height"
@@ -156,7 +155,7 @@
                          data-ng-src="{{'data:image/jpeg;base64,' + p.picture}}" alt="{{p.displayName}}">
                     <h4 style="margin: 10px 5px 0 10px;" class="card-title" ng-bind="p.displayName"></h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body" ng-if="p.$showCard">
                     <p>Birthday: {{p.birthday}}</p>
                     <p>Gender: {{p.gender}}</p>
                     <p>Ethnicity: {{p.ethnicity}}</p>
@@ -167,8 +166,9 @@
                     <blockquote>About me: {{p.aboutMe}}</blockquote>
                 </div>
                 <div class="card-footer">
-                    <!--todo add edit form -->
-                    <a href="#" class="card-link">Edit</a>
+                    <a class="card-link text-primary" ng-click="p.$showCard = true" ng-if="!p.$showCard">More</a>
+                    <a class="card-link text-primary" ng-click="p.$showCard = false" ng-if="p.$showCard">Hide</a>
+                    <a class="card-link text-info" ng-click="editForm(p)">Edit</a>
                     <a ng-click="remove(p)" class="card-link text-danger">Delete</a>
                 </div>
             </div>
