@@ -1,7 +1,9 @@
 package ru.malltshik.codingexercisesoptions.models;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +13,7 @@ import ru.malltshik.codingexercisesoptions.repositories.ProfileRepository;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Base64;
 import java.util.Date;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
@@ -104,5 +107,16 @@ public class Profile {
      */
     @NotNull(message = "Location is required field")
     private String location;
+
+
+    @JsonGetter("picture")
+    public String getPictureBase64() {
+        return this.picture != null ? Base64.getEncoder().encodeToString(this.picture) : null;
+    }
+
+    @JsonSetter("picture")
+    public void setPictureBase64(String base64) {
+        this.picture = Base64.getDecoder().decode(base64.split(",")[1]);
+    }
 
 }

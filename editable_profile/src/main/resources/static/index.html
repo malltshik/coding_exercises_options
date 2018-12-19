@@ -5,15 +5,155 @@
     <link rel="stylesheet" href="css/application.css">
 </head>
 <body ng-controller="RootController" ng-clock>
-<!--todo add new profile button and form -->
 <div class="container mt-3">
     <div class="col-lg-12">
-        <div class="card border-primary mb-3" ng-repeat="p in profiles">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search by name" aria-label="Disply name"
+                   aria-describedby="button-addon2" ng-model="searchQuery">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="button-addon2" data-toggle="modal"
+                        data-target="#newProfileModal">New profile
+                </button>
+            </div>
+        </div>
+        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="newProfileModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <form ng-submit="createNewProfile(draft)">
+                        <div class="modal-header">
+                            <h4>New profile form</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <p class="error" ng-if="vMessage" ng-bind="vMessage"></p>
+                                <div class="form-group">
+                                    <label for="displayName">Display name:</label>
+                                    <p ng-repeat="e in vErrors['displayName']" class="error">{{e}}</p>
+                                    <input ng-model="draft.displayName" type="text" maxlength="256"
+                                           class="form-control" id="displayName"
+                                           placeholder="Display name (free text/up to 256 char)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="realName">Real name:</label>
+                                    <p ng-repeat="e in vErrors['realName']" class="error">{{e}}</p>
+                                    <input ng-model="draft.realName" type="text" maxlength="256"
+                                           class="form-control" id="realName"
+                                           placeholder="Real name (free text/up to 256 char)">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="picture">Picture:</label>
+                                    <input fileread="draft.picture" type="file" class="form-control-file" id="picture"
+                                           accept="image/*">
+                                    <img ng-if="draft.picture" data-ng-src="{{draft.picture}}" alt="Draft Picture"
+                                         class="image-preview" ng-click="draft.picture = null">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="birthday">Birthday:</label>
+                                    <p ng-repeat="e in vErrors['birthday']" class="error">{{e}}</p>
+                                    <input ng-model="draft.birthday" type="date"
+                                           class="form-control" id="birthday" placeholder="Birthday">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="height">Height (millimeters):</label>
+                                    <input ng-model="draft.height" type="number"
+                                           class="form-control" id="height"
+                                           placeholder="Height in millimeter 180sm = 1800mm">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="gender">Gender:</label>
+                                    <p ng-repeat="e in vErrors['gender']" class="error">{{e}}</p>
+                                    <select name="repeatSelect" id="gender" class="form-control"
+                                            ng-model="draft.gender">
+                                        <option ng-repeat="option in attrs.gender" value="{{option.name}}">
+                                            {{option.name}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ethnicity">Ethnicity:</label>
+                                    <select name="repeatSelect" id="ethnicity" class="form-control"
+                                            ng-model="draft.ethnicity">
+                                        <option ng-repeat="option in attrs.ethnicity" value="{{option.name}}">
+                                            {{option.name}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="religion">Religion:</label>
+                                    <select name="repeatSelect" id="religion" class="form-control"
+                                            ng-model="draft.religion">
+                                        <option ng-repeat="option in attrs.religion" value="{{option.name}}">
+                                            {{option.name}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="figure">Figure:</label>
+                                    <select name="repeatSelect" id="figure" class="form-control"
+                                            ng-model="draft.figure">
+                                        <option ng-repeat="option in attrs.figure" value="{{option.name}}">
+                                            {{option.name}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="maritalStatus">Marital Status:</label>
+                                    <p ng-repeat="e in vErrors['maritalStatus']" class="error">{{e}}</p>
+                                    <select name="repeatSelect" id="maritalStatus" class="form-control"
+                                            ng-model="draft.maritalStatus">
+                                        <option ng-repeat="option in attrs.maritalStatus" value="{{option.name}}">
+                                            {{option.name}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="occupation">Occupation:</label>
+                                    <p ng-repeat="e in vErrors['occupation']" class="error">{{e}}</p>
+                                    <input ng-model="draft.occupation" type="text" maxlength="256"
+                                           class="form-control" id="occupation"
+                                           placeholder="Occupation (free text/up to 256 char)">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="location">Location:</label>
+                                    <p ng-repeat="e in vErrors['location']" class="error">{{e}}</p>
+                                    <input type="text" ng-model="draft.location" id="location"
+                                           uib-typeahead="city.city + ' ('+ city.lon + ' ' + city.lat +')' for city in attrs.cities | filter:$viewValue | limitTo:8"
+                                           class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="aboutMe">About me:</label>
+                                    <p ng-repeat="e in vErrors['aboutMe']" class="error">{{e}}</p>
+                                    <textarea ng-model="draft.aboutMe" type="text" maxlength="5000"
+                                              class="form-control" id="aboutMe"
+                                              placeholder="About me (free text/up to 5000 char)"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card border-primary mb-3" ng-repeat="p in profiles | filter:{displayName:searchQuery}">
             <div class="card">
                 <div class="card-header" style="display: inline-flex;">
-                    <!--todo add picture support -->
                     <img style="width: 48px;height: 48px;" class="card-img-top"
-                         src="https://static.thenounproject.com/png/630729-200.png" alt="{{p.displayName}}">
+                         data-ng-src="{{'data:image/jpeg;base64,' + p.picture}}" alt="{{p.displayName}}">
                     <h4 style="margin: 10px 5px 0 10px;" class="card-title" ng-bind="p.displayName"></h4>
                 </div>
                 <div class="card-body">
@@ -38,34 +178,8 @@
 </body>
 <script src="js/angular.min.js"></script>
 <script src="js/angular-resource.min.js"></script>
-<script>
-    var App = angular.module("App", ["ngResource"]);
-
-    App.config(function($resourceProvider) {
-        $resourceProvider.defaults.stripTrailingSlashes = false;
-    });
-
-    App.factory('ProfileFactory', ['$resource', function ($resource) {
-        return $resource('/api/profile/:id/', {}, {})
-    }]);
-
-    App.controller("RootController", ["$scope", "$rootScope", "$filter", "ProfileFactory",
-        function ($scope, $rootScope, $filter, ProfileFactory) {
-            ProfileFactory.query().$promise.then(function (resp) {
-                $scope.profiles = resp;
-            });
-            $scope.heightToString = function (value) {
-                return Math.round((value / 10) * 100) / 100 + " cm."
-            };
-            $scope.remove = function (profile) {
-                profile.$remove({id: profile.id}).then(function () {
-                    $scope.profiles = $scope.profiles.filter(function (el) {
-                        return el.id !== profile.id;
-                    });
-
-                });
-            }
-        }]);
-
-</script>
+<script src="js/jquery-3.2.1.slim.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/ui-bootstrap-tpls-2.1.3.min.js"></script>
+<script src="js/application.js"></script>
 </html>

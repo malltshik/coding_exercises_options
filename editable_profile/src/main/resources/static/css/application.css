@@ -11,3 +11,22 @@ button, html, input, select, textarea {
 a {
     cursor: pointer;
 }
+
+.image-preview {
+    width: 88px;
+    height: 88px;
+    margin: 10px 0;
+    cursor:pointer;
+}
+
+.uib-typeahead-match {
+    padding: 5px;
+}
+
+.uib-typeahead-match a {
+    color: #333;
+}
+
+p.error {
+    color: red;
+}
