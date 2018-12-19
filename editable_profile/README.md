@@ -1,3 +1,21 @@
+## Install and run
+
+Get source
+```bash
+git clone git@github.com:malltshik/coding_exercises_options.git
+```
+Build
+```bash 
+cd coding_exercises_options/editable_profile
+./mvnw clean install
+```
+Run
+```bash
+java -jar target/coding-exercises-options-0.0.1-SNAPSHOT.jar
+```
+Open web page at [localhost:8080](http://localhost:8080)
+
+
 ## Editable Profile
 
 
