@@ -1,9 +1,6 @@
 package ru.malltshik.codingexercisesoptions.models;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -57,6 +54,7 @@ public class Profile {
      * date
      */
     @NotNull(message = "Birthday is required field")
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     private Date birthday;
     /**
      * single selection

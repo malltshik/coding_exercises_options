@@ -19,7 +19,7 @@ App.factory('Api', ['$resource', function ($resource) {
     }
 }]);
 
-App.controller("RootController", ["$scope", "Api", function ($scope, Api) {
+App.controller("RootController", ["$scope", "$filter", "Api", function ($scope, $filter, Api) {
 
     $scope.attrs = {};
 
@@ -110,4 +110,14 @@ App.directive("fileread", [function () {
             });
         }
     }
-}]);
+}]).directive('timestamp', function () {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function (scope, element, attrs, ngModel) {
+                ngModel.$formatters.push(function (value) {
+                    return new Date(value);
+                });
+            }
+        };
+    });
